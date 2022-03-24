@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+
+<div class="profile">
+    <div class="headerProfile" style="background-image:url({% static 'images/header.jpg' %}); ">
+    </div>
+    <div class="parent">
+        <div class="info">
+            <div class="avtar">
+                {% if userprofile.photo %}
+                    <img src="{{userprofile.photo.url}}" alt="">
+                {% else %}
+                    <img src="{% static 'images/avtar.jpg' %}" alt="">
+                {% endif %}
+            </div>
+        </div>
+        <div class="foll">
+            <button class="btn">Follow</button>
+            <!-- <img class="icon" src="img/email (1).png " alt=""> -->
+        </div>
+    </div>
+    <div class="userName">
+        <h5 class="name">{{user.first_name}} {{user.last_name}}</h5>
+        <p>@{{user.username}}</p>
+        <h5>{{userprofile.category|title}}</h5>
+        <div class="follow">
+            <H6>15 <span style="margin-right: 10px; ">follower</span> </H6>
+            <H6>8 <span>following</span></H6>
+        </div>
+    </div>
+    <div class="contentProfile">
+        <div class="tab">
+            <ul class="nav ">
+                <li class="nav-item">
+                    <a class="nav-link artPhoto " aria-current="page" href="#">All Art</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aboutUser" href="#">About</a>
+                </li>
+            </ul>
+            {% if request.user.pk == user.pk %}
+            <div class="add">
+                <a class="" href="{% url 'addwork' request.user.username %}"><button>Add Work</button></a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="photoGallery">
+            <div class="container">
+                <div class="artWork">
+                    <div class="row">
+                        {% for work in works %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    <div class="card">
+                                        <div class="box">
+                                                <div class="cont">
+                                                    <a href="{% url 'photodetails' work.pk %}">
+                                                        <img src="{{work.photo.url}}" alt="">
+                                                        <div class="det">
+                                                            <h4>{{work.title}}</h4>
+                                                            <p>{{work.category|title}}</p>
+                                                            <span class="name">{{work.user.first_name}} {{work.user.last_name}}</span>
+                                                            <span class="price">{{work.price}}$</span>
+                                                            <div class="hint-star star">
+                                                                <i class="fa fa-star" aria-hidden="true"></i> 
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                    <i class="far fa-star" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="about">
+                    <br> <br>
+                    <p>
+                        Hello, <br> my name is Sarah Khaled I have a hobby of drawing and more specialized in the
+                        field of digital drawing and I have many paintings I added some of them click on my gallery
+                        to view them
+                    </p>
+                </div>
+
+                <!-- Modal -->
+                <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="contact mt-5">
+                                <div class="cont">
+                                    <p>Enter your information</p>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Your Name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Phone Number">
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            placeholder="Put your message here"></textarea>
+                                    </div>
+                                    <div class="text-center">
+                                        <button>send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block navbar %}
+<div class="navigation">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+<div class="chat">
+<div id='chatHeader'>
+    <h4 class="text-center">lets share our experince and knowledge of art</h4>
+</div>
+
+<div class="cont">
+        <div class="titleChat">
+            <h5>Art Chat</h5>
+            <input type="text" placeholder="search" class="search"
+                style="position: absolute; border-radius: 10px; display: none; border: solid 1px #272525; width: 70%; left: 50%; transform: translate(-50%); ">
+                <!-- <form class="d-flex"> -->
+            <form method="POST" action="{% url 'clearchat' room.pk %}">
+                {% csrf_token %}
+                <div class="dropdown">
+                    <div class="list" class=" dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenu2" style="margin-left: -50px;">
+                        <li class="dropdown-item sea"><input type="text" name="search" placeholder="Search ......."></li>
+                        <a href=""><li class="dropdown-item sea">Group media</li></a>
+                        <a href=""><li class="dropdown-item">Wallpaper</li></a>
+                        <a href="{% url 'clearchat' room.name %}"><li class="dropdown-item">Clear chat</li></a>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+
+        <div id='messages'>
+            <script>
+                $(document).ready(function(){
+                
+                setInterval(function(){
+                    $.ajax({
+                        type: 'GET',
+                        url : "getMessages/{{room.name}}/",
+                        success: function(response){
+                            console.log(response.messages[0]['user_id']);
+                            var user_id = '{{request.user.pk}}'
+                            $("#messages").empty();
+                            for (var key in response.messages){
+                                if (user_id == response.messages[key]['user_id']){
+                                    var temp = `
+
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end width-100 mb-2">
+                                            <div class="reader message " style="display: flex;  width: 50%;">
+                                                <div class="msg read">
+                                                    <p class="par">${response.messages[key]['message']}</p>
+                                                    <span class="time">08:12</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `
+                                    $("#messages").append(temp);
+                                } else {
+                                    var temp = `
+                                    <div class="row">
+                                        <div class="d-flex justify-content-start width-100 mb-2">
+                                            <div class="sender message">
+                                                <div class="msg send">
+                                                    <a href="customerProfile.html">
+                                                        <p class="name">sara khaled</p>
+                                                    </a>
+                                                    <p class="par">${response.messages[key]['message']}</p>
+                                                    <span class="time">08:12</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `
+                                    $("#messages").append(temp);
+                                }
+                            }
+                            console.log(response.messages[0]['user']);
+                        },
+                        error: function(response){
+                            console.log('***********');
+                        }
+                    });
+                },1000);
+                })
+            </script>
+        </div>
+
+
+            <form id='form-message'>
+                {% csrf_token %}
+                <!-- <div class="inpu">
+                        <textarea name="messa" id='messa' class="form-control type_msg" placeholder="Type your message..." required></textarea>
+                        <input type="hidden" name="room_id" value="{{room.pk}}" id="room_id">
+                        <div class="input-group-append" id="send">
+                            <button class="btn" type="submit" id="submit" name="send" >
+                                <i class="fas fa-location-arrow" ></i>
+                            </button>
+                        </div>
+                </div> -->
+    
+                <div class="inpu">
+                    <div class="group">
+                        <a href="#"><i class="far fa-smile-beam"></i></a>
+                        <input name="messa" id='messa' type="text" placeholder="type a message..." required>
+                        <input type="hidden" name="room_id" value="{{room.pk}}" id="room_id">
+                        <a href="#"><i class="fas fa-images"></i></a>
+                    </div>
+                    <div class="plane">
+                        <button class="btn" type="submit" id="submit" name="send" >
+                            <a><i class="fas fa-paper-plane"></i></a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+    
+            <script type="text/javascript">
+                $(document).on('submit','#form-message',function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        type:'POST',
+                        url:'sendMessage/',
+                        data:{
+                            messa:$('#messa').val(),
+                            room_id:$('#room_id').val(),
+                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                        },
+                        success: function(data){
+                        // alert(data)
+                        console.log('..........');
+                        },
+                        error: function(response){
+                            console.log('***********');
+                        }
+                    });
+                    document.getElementById('messa').value = ''
+                });
+            </script>
+    
+    </div>
+</div>
+
+<script>
+
+    const messages = document.getElementById('messages');
+
+    function appendMessage() {
+        const message = document.getElementsByClassName('message')[0];
+    
+        messages.appendChild(newMessage);
+    }
+    
+    function getMessages() {
+    
+        shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+    
+        appendMessage();
+    
+        if (!shouldScroll) {
+            scrollToBottom();
+        }
+    }
+    
+    function scrollToBottom() {
+        messages.scrollTop = messages.scrollHeight;
+    }
+    
+    scrollToBottom();
+    
+</script>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+

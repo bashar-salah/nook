@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block navbar %}
+<div class="navigation">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="choose text-center">
+    <h4>Art community to exchange cultures and experiences</h4>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <select name='room_id' class="form-select" aria-label="Default select example">
+            <option selected value="Choose Room">Choose Room</option>
+            {% for room in rooms %}
+                <option value="{{room.pk}}" id="al">{{room.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" name="move_room" class="btn move" value="Click to move">
+    </form>
+    {% if not request.user.is_authenticated %}
+        <p>Not a member? <a href="{% url 'signin' %}">Register now</a></p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

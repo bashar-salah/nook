@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+
+    {% block navbar %}
+    <div class="header" id="text-carousel-intro-section" class="parallax" data-stellar-background-ratio="0.5"
+        style="background-image: url({% static 'images/header1.jpg' %});">
+        {% include 'parts/navbar.html' %}
+        <div class="er">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="homepagetext">
+                <div class="front text-center" data-aos="fade-down">
+                    <h1 style="font-size: 60px; color: white;">Face To World</h1>
+                    <p>Displaying the works of Palestinian artists in the easiest and fastest way and exchanging cultures with abroad</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>  
+    {% endblock %}
+
+{% block body %}
+
+<!-- start featuress -->
+
+<div class="features">
+    <div class="row"  data-aos="flip-up" data-aos-easing="ease-in-out">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="image">
+                    <img style="color: rebeccapurple; " src="{% static 'images/lamp.svg' %}" alt="">
+                </div>
+                <p>Helping artists showcase and sell their work abroad</p>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="image">
+                    <img src="{% static 'images/filter.png' %}" alt="">
+                </div>
+                <p>Shedding light on the artistic cultural aspect in Gaza</p>
+            </div>
+        
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="image">
+                    <img src="{% static 'images/filter.png' %}" alt="">
+                </div>
+                <p>Spreading Palestinian culture abroad</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<section id="cate" class="mt-5 cc">
+    <div class="title">
+        <hr>
+    </div>
+    <!-- end features -->
+    <!-- start category -->
+
+    <div class="category">
+        <!-- <div class="container"> -->
+        <div class="row text-center" data-aos="fade-right" style="">
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12   mb-5">
+                <div class=" text-center py-5  cat">
+                    <div class="cicle" style=""> <img src="{% static 'images/dress.png' %}" alt="" width="100"
+                            class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></div>
+                    <h5 class="mb-0 text-center mt-3 w-100">Fashion Design</h5>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3  col-sm-3 col-xs-12   mb-5 ">
+                <div class=" py-5 cat"> <img src="{% static 'images/paint-palette.png' %}" alt="" width="100"
+                        class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                    <h5 class="mb-0 mt-3 ">Painting</h5>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3  col-sm-3 col-xs-12   mb-5">
+                <div class="  py-5 cat"><img src="{% static 'images/embroidery.png' %}" alt="" width="100"
+                        class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                    <h5 class="mb-0 mt-3 ">embroidery</h5>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12   mb-5">
+                <div class=" py-5  cat"><img src="{% static 'images/dslr-camera.png' %}" width="100"
+                        class="img-fluid rounded-circle  mb-3 img-thumbnail shadow-sm">
+                    <h5 class="mb-0 mt-3">Photography</h5>
+
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- end category -->
+
+
+<!-- start recent work -->
+
+<div class="recent">
+    <div class="title" data-aos="fade-right">
+        <hr>
+    </div>
+    <div>
+        <p class="text-center pt-4">The latest works published on the site of all categories</p>
+    </div>
+    <div class="content">
+        <div class="row" data-aos="fade-up">
+
+            {% for work in recentwork %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                    <a href="{% url 'photodetails' work.pk %}">
+                        <div class="card">
+                            <div class="box">
+                                <div class="cont">
+                                    <img src="{{work.photo.url}}" alt="">
+                                    <div class="det">
+                                        <h4>{{work.title|title}}</h4>
+                                        <p>{{work.category|title}}</p>
+                                        <span class="name">{{work.user.first_name}} {{work.user.last_name}}</span>
+                                        <span class="price">{{work.price}}$</span>
+                                        <!-- <a href="#">Read More</a>  -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <br> <br>
+    <a href="{% url 'category' %}"><button>View All Work</button></a>
+</div>
+<!-- end recent work -->
+<!-- start top work -->
+<div class="topwork">
+    <div class="title" data-aos="fade-right">
+        <hr>
+    </div>
+    <p class="text-center pt-4 des">The best business on the site of all categories</p>
+    <div class="content">
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+
+                <div class="card">
+                    <div class="box">
+                        <div class="cont">
+                            <img src="{% static 'images/art4.jpg' %}" alt="">
+                            <div class="det">
+
+                                <h4>digital art</h4>
+                                <p>painting</p>
+
+                                <span class="name">Sara Khaled</span>
+                                <span class="price">40$</span>
+                                <!-- <a href="#">Read More</a>  -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="box">
+                        <div class="cont">
+                            <img src="{% static 'images/art4.jpg' %}" alt="">
+                            <div class="det">
+
+                                <h4>digital art</h4>
+                                <p>painting</p>
+
+                                <span class="name">Sara Khaled</span>
+                                <span class="price">40$</span>
+                                <!-- <a href="#">Read More</a>  -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="box">
+                        <div class="cont">
+                            <img src="{% static 'images/art4.jpg' %}" alt="">
+                            <div class="det">
+
+                                <h4>digital art</h4>
+                                <p>painting</p>
+
+                                <span class="name">Sara Khaled</span>
+                                <span class="price">40$</span>
+                                <!-- <a href="#">Read More</a>  -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="box">
+                        <div class="cont">
+                            <img src="{% static 'images/art4.jpg' %}" alt="">
+                            <div class="det">
+
+                                <h4>digital art</h4>
+                                <p>painting</p>
+
+                                <span class="name">Sara Khaled</span>
+                                <span class="price">40$</span>
+                                <!-- <a href="#">Read More</a>  -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+<!-- start information  -->
+<br> <br> <br>
+<div id="cont" class="information" data-aos="fade-down" data-aos-offset="200" data-aos-duration="1000">
+    <p class="text-center">Get in touch with us!</p>
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <img src="img/pin (1).png" alt="">
+            <h6>addresss</h6>
+            <p>123 Dan St #100 , San Francis</p>
+        </div>
+        <div class="col-lg-4 col-md-4 middle" style="">
+            <img src="img/cell-phone (2).png" alt="">
+            <h6>phone</h6>
+            <p>020599213456</p>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <img src="img/email (1).png" alt="">
+            <h6>email</h6>
+            <p>info@gmail.com</p>
+        </div>
+    </div>
+</div>
+<!-- start contact -->
+<div class="contact mt-5" data-aos="fade-down">
+    <form method="POST" action="{% url 'contacthomepage' %}">
+        {% csrf_token %}
+        <div class="cont">
+            
+            <div class="mb-3">
+                {% include 'parts/alert.html' %}
+            </div>
+            <div class="mb-3">
+                <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Your Name" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="phone" minlength="10" maxlength="10" class="form-control" id="exampleFormControlInput1" placeholder="Phone Number" required>
+            </div>
+            <div class="mb-3">
+                <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Put your message here" required></textarea>
+            </div>
+        </div>
+        <div class="bt text-center">
+            <input class="btn" type="submit" value="send" name="contact">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+

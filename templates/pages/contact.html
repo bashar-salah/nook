@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+
+
+<!-- start information  -->
+<div style="margin-top: 50px;" id="cont" class="information" data-aos="fade-down" data-aos-offset="200" data-aos-duration="1000">
+    <p class="text-center">Get in touch with us!</p>
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <img src="img/pin (1).png" alt="">
+            <h6>addresss</h6>
+            <p>123 Dan St #100 , San Francis</p>
+        </div>
+        <div class="col-lg-4 col-md-4 middle" style="">
+            <img src="img/cell-phone (2).png" alt="">
+            <h6>phone</h6>
+            <p>020599213456</p>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <img src="img/email (1).png" alt="">
+            <h6>email</h6>
+            <p>info@gmail.com</p>
+        </div>
+    </div>
+</div>
+<!-- start contact -->
+<!-- <a name="cont"></a> -->
+<div class="contact mt-5" data-aos="fade-down">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="cont">
+            
+            <div class="mb-3">
+                {% include 'parts/alert.html' %}
+            </div>
+            <div class="mb-3">
+                <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Your Name" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="phone" minlength="10" maxlength="10" class="form-control" id="exampleFormControlInput1" placeholder="Phone Number" required>
+            </div>
+            <div class="mb-3">
+                <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Put your message here" required></textarea>
+            </div>
+        </div>
+        <div class="bt text-center">
+            <input class="btn" type="submit" value="send" name="contact">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+
+<div class="log">
+    <div class="container">
+        <div class="row text-center log-head">
+            <h3>Sign Up</h3>
+        </div> 
+        <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {% include 'parts/alert.html' %}
+            <br>
+            <div class="input-group mb-3 " style="display: flex;">
+                <input required name="firstname" value="{{firstname}}" type="text" class="form-control first" placeholder="First Name" aria-label="firstname" aria-describedby="basic-addon1">
+                <input required name="lastname" value="{{lastname}}" type="text" class="form-control last" placeholder="Last Name" aria-label="lastname" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input required name="username" value="{{username}}" type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input required name="email" type="email" value="{{email}}" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input required name="phone" type="text" value="{{phone}}" minlength="10" maxlength="10" class="form-control" placeholder="Phone Number" aria-label="phone" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input required name="password1" type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <input required name="password2" type="password" class="form-control" placeholder="Confirm Password" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <select required name="category"  class="form-select"  aria-label="Default select example">
+                <option>Choose your artistic talent</option>
+                <option value="1">Painting</option>
+                <option value="2">Photography</option>
+                <option value="3">Embroidery</option>
+                <option value="4">Fashion Design</option>
+            </select>
+            <div class="drop-zone" >
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <span class="drop-zone__prompt">Drag & Drop Image <span class="or">or</span> click to upload</span>
+                <input type="file" name="myFile" class="drop-zone__input">
+            </div>
+            <br>
+            <input required name="type_account" type="text" value="register form" hidden>
+            <div class="text-center">
+                <input name="signup" class="btn" type="submit" value="Done">
+            </div>
+        </form>
+        <span>
+            If you already have an account ? <a href="{% url 'signin' %}">Sign in</a> 
+        </span>
+    </div>
+</div>
+
+
+{% endblock %}

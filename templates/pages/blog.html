@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+<div class="blog mt-5">
+    <div class="row">
+        <span>Read</span>
+        <h2>Blog</h2>
+        <div class="col-lg-7">
+
+            {% for blog in allblog %}
+                <div class="sec">
+                    <div class="image">
+                        <a href="{% url 'blogdetails' blog.pk %}"> <img src="{{blog.photo.url}}" alt=""> </a>
+                    </div>
+                        <span>{{blog.date}}</span>
+                    <h4>{{blog.title}}</h4>
+                    <p>{{blog.content}}</p>
+                    <br>
+                    <a href="{% url 'blogdetails' blog.pk %}">Read More >></a>
+                </div>
+            {% endfor %}
+
+            <div class="pagin ">
+                <nav aria-label="..." style="margin: 0 auto;">
+                    <ul class="pagination">
+                        <li class="page-item ">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item " aria-current="page">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-4 lat">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+            </div>  
+            <div class="latest">
+                <h3>
+                    Latest Post
+                </h3>
+                {% for blog in allblog %}
+                    <div>
+                        <a href="{% url 'blogdetails' blog.pk %}">{{blog.title}}</a>
+                        <span>{{blog.date}}</span>
+                    </div>
+                {% endfor %}
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% load static %}
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6" data-aos="fade-right">
+                <h6>About</h6>
+                <p class="text-justify">The site aims to spread artistic culture
+                    around the world, marketpaintings
+                    through the site, and exchange
+                    experiences between talented people.</p>
+            </div>
+
+            <div class="col-xs-6 col-md-3" data-aos="fade-down">
+                <h6>Categories</h6>
+                <ul class="footer-links">
+                    {% for cat in category %}
+                        <li><a href="#">{{cat.name|title}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-md-3" data-aos="fade-down">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'category' %}">Category</a></li>
+                    <li><a href="{% url 'community' %}">Community</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by
+                    <a href="#">Saeda Raed</a>.
+                </p>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="iconSocial">
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

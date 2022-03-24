@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+
+    <!-- photoDetails -->
+    <div class="photoDetails">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 text-center imageCont">
+                <div class="image">
+                    <img style=" width: 100%;" src="{{work.photo.url}}"  alt="">
+                </div>
+                <br>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Click to see the image in full size</a>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <img src="{{work.photo.url}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 details ">
+                <h3>{{work.title}}</h3>
+                <div class="det">
+                    <h4>Size : <span>50 x 70cm</span> </h4>
+                    <h4>Class : <span>{{work.category|title}}</span></h4>
+                    <h4>Price : <span class="price">{{work.price}}$</span></h4>
+                    <h4>Descriptuion : <span>{{work.description}}</span></h4>
+                    <!-- <div class="hint-star star">
+                        <i class="fa fa-star" aria-hidden="true"></i> 
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="far fa-star" aria-hidden="true"></i>
+                    </div> -->
+                    {% if work.user.pk == request.user.pk %}
+                        <div class="editButton">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="{% url 'editwork' work.id %}"><button class="btn">Edit</button></a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{% url 'photodelete' work.pk %}"><button class="btn delete">Delete</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="cont text-center mt-5">
+                            <a href=""><button class="btn">Contact</button></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class=" share">
+            <span>share the art</span>
+            <input type="text" value="https://nook.com/portfolio/37789">
+            <div class="iconSocial">
+                <a class="btn btn-outline-light btn-social mx-1" href="{% url 'profile' work.user.pk %}"><i class="fab fa-fw fa-facebook-f"></i></a>
+                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
+                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

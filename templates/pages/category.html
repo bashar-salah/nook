@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+
+<div class="categoryPage">
+    <!-- <h2>ART</h2> -->
+    <br> <br>
+    <div class="list ">
+        <ul class="nav" id="navv">
+            {% for cat in category %}
+                <li  class="nav-item" id="{{cat}}">
+                    <a class="nav-link active " aria-current="page" href="#">{{cat}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById('painting').className = 'left';
+    document.getElementById('fashion design').className = 'right fashion';
+</script>
+
+
+
+<div class="categoryDetails">
+    <div class="tit">
+        <div class="inp" >
+            <select class="form-select" aria-label="Default select example">
+                <option selected>painting type</option>
+                <option value="1">digital art</option>
+                <option value="2">hand art</option>
+            </select>
+            <input type="text" placeholder="art name">
+
+            <button>Search</button>
+
+        </div>
+    </div>
+    <div class="content">
+        <!-- <div class="container"> -->
+            {% for cat in category %}
+                <h2 style="color:#C79E17 ; text-align: center;" class="title{{cat.name}}">{{cat.name}}</h2>
+            {% endfor %}
+            
+            <div class="row">
+
+                {% for work in allwork %}
+                
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 art art{{work.category}}">
+                        <a href="{% url 'photodetails' work.pk %}">
+                            <div class="card">
+                                <div class="box">
+                                    <div class="cont">
+                                        <img src="{{work.photo.url}}" alt="">
+                                        <div class="det">
+                                            <h4>{{work.title|title}}</h4>
+                                            <p>{{work.category|title}}</p>
+                                            <span class="name">{{work.user.first_name}} {{work.user.last_name}}</span>
+                                            <span class="price">{{work.price}}$</span>
+                                            <div class="hint-star star">
+                                                <i class="fa fa-star" aria-hidden="true"></i> 
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="far fa-star" aria-hidden="true"></i>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                
+                {% endfor %}
+
+            </div>
+
+            <!-- {% if allwork.count > 8 %}
+                <div class="pagin">
+                    <nav aria-label="..." style="margin: 0 auto;">
+                        <ul class="pagination">
+                            <li class="page-item ">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item " aria-current="page">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %} -->
+
+
+        </div>
+    </div>
+</div>
+<br> <br> <br>
+
+{% endblock %}

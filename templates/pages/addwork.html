@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+    <div class="addWork">
+        <div class="add">
+            <a href="{% url 'profile' request.user.pk %}"><h6>Profile / </h6></a>
+            <a class="a-last"><h6>Add Work</h6></a>
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {% include 'parts/alert.html' %}
+                <br>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Add a suitable title</label>
+                    <input type="text" name="title" maxlength="100" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Add a short description of the work</label>
+                    <input type="text" name="description" maxlength="200" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPrice" class="form-label">Price ($)</label>
+                    <input type="number" name="price" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPrice" class="form-label">Art Category</label>
+                    <select class="form-select" name="category" aria-label="Default select example" required>
+                        <option selected>Open this select menu</option>
+                        <option value="{{categor}}">{{categor}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPrice" class="form-label">painting size (cm)</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="downloadImage"> 
+                    <div class="download"> 
+                        <input class="input-file" name="myFile" id="my-file" type="file">
+                        <label tabindex="0" for="my-file" class="input-file-trigger">
+                            <i class="fas fa-image"></i>
+                            Upload the image
+                        </label>
+                    </div>
+                </div>
+                <p class="file-return"></p>
+
+                <div class="but text-center">
+                    <input class="btn  bg-light" type="submit" value="Add Work" name='addwork'>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("html").classList.add('js');
+        var fileInput  = document.querySelector( ".input-file" ),  
+            button     = document.querySelector( ".input-file-trigger" ),
+            the_return = document.querySelector(".file-return");
+            
+        button.addEventListener( "keydown", function( event ) {  
+            if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+                fileInput.focus();  
+            }  
+        });
+        button.addEventListener( "click", function( event ) {
+        fileInput.focus();
+        return false;
+        });  
+    </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body %}
+<div class="aboutPage">
+    <div data-aos="fade-down">
+        <h2>ABOUT</h2>
+        <p class="fds">
+            {{aboutdescription}}
+        </p>
+    </div>
+    <br>
+    <div class="row mt-5" data-aos="fade-right">
+        <p class="include">Nook website includes several sections:</p>
+    </div>
+
+    {% for cat in category %}
+        {% if cat.id == 1 or cat.id == 3 %}
+            <div class="row" data-aos="fade-right">
+                <div class="col-lg-6  mb-5 mt-5">
+                    <div class="brief brief{{cat.pk}}">
+                        <img src="{{cat.photo.url}}" alt="{{cat.name}}">
+                    </div>
+                    
+                </div>
+                <div class="col-lg-6">
+                    <h4> {{cat.pk}}- {{cat.name|title}}</h4>
+                    <p>{{cat.description}}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="row right" data-aos="fade-left">
+                <div class="col-lg-6  mb-5 mt-5">
+                    <div class="brief brief{{cat.pk}}">
+                        <img src="{{cat.photo.url}}" alt="{{cat.name}}">
+                    </div>
+                </div>
+                <div class="col-lg-6  mb-5 mt-5">
+                    <h4>{{cat.pk}}- {{cat.name}}</h4>
+                    <p>{{cat.description}}</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+{% endblock %}
